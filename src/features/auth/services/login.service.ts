@@ -1,6 +1,15 @@
 import type { LoginFormData } from "../schemas/login.schema";
 
-export const loginService = async (data: LoginFormData) => {
+type LoginResponse = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  profile_picture: string;
+};
+
+export const loginService = async (
+  data: LoginFormData,
+): Promise<LoginResponse | undefined> => {
   try {
     const response = await fetch("http://127.0.0.1:3000/auth/login", {
       method: "POST",
@@ -10,7 +19,9 @@ export const loginService = async (data: LoginFormData) => {
       },
     });
 
-    return response;
+    const responseJson = await response.json();
+
+    return responseJson.data.user;
   } catch (error) {
     console.log("error", error);
   }

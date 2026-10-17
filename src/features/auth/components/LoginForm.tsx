@@ -6,21 +6,32 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Button";
 import { loginService } from "../services/login.service";
+import { useAuthStore } from "../stores/auth.store";
+import { useNavigate } from "react-router";
 
 const LoginForm = () => {
   const [apiError, setApiError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const setUser = useAuthStore((state) => state.setUser);
+  const navigate = useNavigate();
 
   const { register, formState, handleSubmit } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = (data: LoginFormData) => {
+  const onSubmit = async (data: LoginFormData) => {
     try {
       setIsLoading(true);
-      console.log("donnee du formulaire", data);
-      const apiResponse = loginService(data);
+      // console.log("donnee du formulaire", data);
+      const apiResponse = await loginService(data);
       // gerer la suite du comportement de l'api
+         console.log('navigation')
+      if (apiResponse) {
+        setUser(apiResponse);
+      }
+   
+      navigate("/dashboard/home");
+
     } catch (error) {
       setApiError("Erreur interne");
     } finally {
