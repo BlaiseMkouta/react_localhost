@@ -7,6 +7,9 @@ import { Button } from "./Button";
 export const NavDashboard = () => {
   const getUser = useAuthStore((state) => state.user);
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const togglestate = () => {
+    setIsVisible(!isVisible);
+  };
 
   return (
     <header>
@@ -22,7 +25,10 @@ export const NavDashboard = () => {
             </span>
           </p>
 
-          <div className="bg-gray-200 w-8 h-8 rounded-full">
+          <button
+            onClick={togglestate}
+            className="bg-gray-200 w-8 h-8 rounded-full"
+          >
             {getUser?.profile_picture ? (
               <img
                 src={getUser.profile_picture}
@@ -32,12 +38,15 @@ export const NavDashboard = () => {
             ) : (
               <img src="/avatar.svg" alt="avatar" className="w-8" />
             )}
-          </div>
-          <div className="p-2 shadow flex flex-col items-start gap-2 absolute top-14 right-0">
-            <Link to="#"> Settings</Link>
-            <Link to="#"> Profile</Link>
-            <Button label="Logout" />
-          </div>
+          </button>
+
+          {isVisible && (
+            <div className="p-2 shadow flex flex-col items-start gap-2 absolute top-14 right-0">
+              <Link to="#"> Settings</Link>
+              <Link to="#"> Profile</Link>
+              <Button label="Logout" />
+            </div>
+          )}
         </div>
       </div>
     </header>
