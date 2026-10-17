@@ -8,6 +8,7 @@ import { Button } from "../../../components/Button";
 import { loginService } from "../services/login.service";
 import { useAuthStore } from "../stores/auth.store";
 import { useNavigate } from "react-router";
+import toast, { Toaster } from "react-hot-toast";
 
 const LoginForm = () => {
   const [apiError, setApiError] = useState<string>("");
@@ -25,15 +26,15 @@ const LoginForm = () => {
       // console.log("donnee du formulaire", data);
       const apiResponse = await loginService(data);
       // gerer la suite du comportement de l'api
-         console.log('navigation')
-      if (apiResponse) {
-        setUser(apiResponse);
+      if (!apiResponse) {
+        toast.error("Invalid credentials");
+        return;
       }
-   
+      setUser(apiResponse);
       navigate("/dashboard/home");
-
     } catch (error) {
       setApiError("Erreur interne");
+      console.log("erreur dans le formulaire");
     } finally {
       setIsLoading(false);
     }
@@ -62,6 +63,7 @@ const LoginForm = () => {
       </div>
 
       <Button label="Connexion" type="submit" isLoading={isLoading} />
+      <Toaster />
     </form>
   );
 };

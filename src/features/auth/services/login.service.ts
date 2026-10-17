@@ -23,6 +23,6 @@ export const loginService = async (
 
     return responseJson.data.user;
   } catch (error) {
-    console.log("error", error);
+    console.log("error dans le service", error);
   }
 };
