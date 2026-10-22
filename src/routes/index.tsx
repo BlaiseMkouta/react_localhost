@@ -6,6 +6,7 @@ import { MainLayout } from "../layouts/MainLayout";
 import { VerifyEmail } from "../pages/auth/Verify-email";
 import { DashboardLayout } from "../layouts/DashboardLayout";
 import { Dashboard } from "../pages/dashboard/Dashboard";
+import { Product } from "../pages/products/Products";
 
 const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes = () => {
       {/** Routes du dashboard */}
       <Route element={<DashboardLayout />}>
         <Route path="/dashboard/home" element={<Dashboard />} />
+        <Route path="/products" element={<Product />} />
       </Route>
     </Routes>
   );

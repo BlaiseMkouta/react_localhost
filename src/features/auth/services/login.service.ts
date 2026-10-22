@@ -17,6 +17,7 @@ export const loginService = async (
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include"
     });
 
     const responseJson = await response.json();
