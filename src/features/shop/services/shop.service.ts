@@ -1,4 +1,6 @@
- export type ShopTypes = {
+import { apiService } from "../../../services/api.service";
+
+export type ShopTypes = {
   name: string;
   id: string;
   description: string;
@@ -9,21 +11,14 @@
 
 export const getMyShop = async (): Promise<ShopTypes | undefined> => {
   try {
-    const response = await fetch("http://127.0.0.1:3000/shop", {
+    const response = await apiService("/shop", {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
     });
 
-    const responsejson = await response.json();
-    console.log("reponse dasn le service", responsejson);
+    const responseJson = await response.json();
 
-    return responsejson.data;
+    return responseJson.data;
   } catch (error) {
     console.log("Errro", error);
   }
 };
-
-

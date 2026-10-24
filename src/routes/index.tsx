@@ -7,6 +7,7 @@ import { VerifyEmail } from "../pages/auth/Verify-email";
 import { DashboardLayout } from "../layouts/DashboardLayout";
 import { Dashboard } from "../pages/dashboard/Dashboard";
 import { Product } from "../pages/products/Products";
+import { ProtectedRoute } from "../guards/ProtectedRoute";
 
 const AppRoutes = () => {
   return (
@@ -19,9 +20,11 @@ const AppRoutes = () => {
       <Route path="/verify-email" element={<VerifyEmail />} />
 
       {/** Routes du dashboard */}
-      <Route element={<DashboardLayout />}>
-        <Route path="/dashboard/home" element={<Dashboard />} />
-        <Route path="/products" element={<Product />} />
+      <Route element={<ProtectedRoute />}>
+        <Route element={<DashboardLayout />}>
+          <Route path="/dashboard/home" element={<Dashboard />} />
+          <Route path="/products" element={<Product />} />
+        </Route>
       </Route>
     </Routes>
   );

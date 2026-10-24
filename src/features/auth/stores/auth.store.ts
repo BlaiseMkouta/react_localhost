@@ -16,6 +16,7 @@ type AuthState = {
 
 type AuthAction = {
   setUser: (user: User) => void;
+  clearUser: () => void;
 };
 
 export const useAuthStore = create<AuthState & AuthAction>()(

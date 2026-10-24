@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useAuthStore } from "../../features/auth/stores/auth.store";
 import {
   getMyShop,
   type ShopTypes,
@@ -13,8 +12,8 @@ type User = {
 };
 
 export const Dashboard = () => {
-  const [user, setUser] = useState<User | null>();
-  const getuser = useAuthStore((state) => state.user);
+  // const [user, setUser] = useState<User | null>();
+  // const getuser = useAuthStore((state) => state.user);
   const [shopInfo, setShopInfo] = useState<ShopTypes>();
 
   const getShop = async () => {
